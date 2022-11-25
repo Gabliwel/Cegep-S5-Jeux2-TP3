@@ -10,7 +10,7 @@ public class LookingAt : MonoBehaviour
 
     void Start()
     {
-        
+        Physics2D.queriesHitTriggers = false;
     }
 
     // Update is called once per frame
@@ -25,7 +25,6 @@ public class LookingAt : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(transform.position, targeting);
         if(hit.collider != null)
         {
-            Debug.Log(hit.collider.gameObject.tag);
             float distance = Mathf.Abs(hit.point.y - transform.position.y);
             float distanceX = Mathf.Abs(hit.point.x - transform.position.x);
             if (distanceX > distance)
@@ -38,7 +37,7 @@ public class LookingAt : MonoBehaviour
             ray.transform.rotation = Quaternion.LookRotation(Vector3.forward, position - transform.position) * Quaternion.Euler(0, 0, 90);
             ray.transform.position = position;
             ray.transform.localScale = new Vector3(distance, 1, 1);
-            Debug.Log(distance);
+            ray.GetComponent<Collider2D>().transform.localScale = new Vector3(distance, 1, 1);
         }
         //gameObject.transform.position = _target;
     }
