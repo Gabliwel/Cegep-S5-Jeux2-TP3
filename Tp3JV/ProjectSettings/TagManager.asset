@@ -7,6 +7,10 @@ TagManager:
   - Laser
   - Ennemie
   - Wall
+  - Prop
+  - Ally
+  - gameManager
+  - Button
   layers:
   - Default
   - TransparentFX
