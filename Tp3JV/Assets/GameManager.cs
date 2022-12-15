@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     {
         if (instance == null)
         {
+            playerInstance = player;
             instance = this;
         }
 
