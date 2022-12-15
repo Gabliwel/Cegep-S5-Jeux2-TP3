@@ -9,7 +9,6 @@ public class HP : MonoBehaviour
     void Start()
     {
         MAX_HEALTH = health;
-        Debug.Log(MAX_HEALTH);
     }
 
     void Update()

@@ -7,17 +7,16 @@ public class LookingAt : MonoBehaviour
     private Vector3 _target;
     public Camera Camera;
     [SerializeField] GameObject ray;
-    [SerializeField] GameObject hitLocation;
     float ScreenMiddleX = 0;
     float ScreenMiddleY = 0;
     float offSet = 0;
+    bool gamePaused = false;
 
     void Start()
     {
         Physics2D.queriesHitTriggers = false;
         Physics2D.queriesStartInColliders = false;
 
-        //Vector3 middleOfScreen = Camera.WorldToScreenPoint(gameObject.transform.position);
         Vector3 middleOfScreen = new Vector3(Screen.width / 2, Screen.height / 2, 0);
 
         ScreenMiddleX = middleOfScreen.x;
@@ -37,13 +36,17 @@ public class LookingAt : MonoBehaviour
     public void Disable()
     {
         ray.SetActive(false);
-        hitLocation.SetActive(false);
         gameObject.SetActive(false);
         GameObject.FindGameObjectWithTag("gameManager").GetComponent<GameManager>().RestartLevel(1f);
     }
 
     void Update()
     {
+        if (gamePaused)
+        {
+            return;
+        }
+
         _target = Input.mousePosition;
         _target.y = (_target.y - ScreenMiddleY) / ScreenMiddleY;
 
@@ -75,12 +78,15 @@ public class LookingAt : MonoBehaviour
             ray.transform.localScale = new Vector3(distance, 0.1f, 1);
             ray.GetComponent<Collider2D>().transform.localScale = new Vector3(distance, 0.1f, 1);
 
-            hitLocation.transform.position = hit.point;
-
             if(hit.collider.gameObject.tag == "Prop" && hit.collider.gameObject.active)
             {
                 hit.collider.gameObject.GetComponent<HP>().LoseHp();
             }
         }
+    }
+
+    public void changePause()
+    {
+        gamePaused = !gamePaused;
     }
 }

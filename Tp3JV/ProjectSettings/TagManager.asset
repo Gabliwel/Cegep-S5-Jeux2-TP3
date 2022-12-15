@@ -11,6 +11,10 @@ TagManager:
   - Ally
   - gameManager
   - Button
+  - Menu
+  - Time
+  - TIme
+  - Life
   layers:
   - Default
   - TransparentFX
