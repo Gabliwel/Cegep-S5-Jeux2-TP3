@@ -21,14 +21,6 @@ public class HP : MonoBehaviour
 
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        /*if (collision.tag == "Laser")
-        {
-
-        }*/
-    }
-
     public void LoseHp()
     {
         health -= 1;

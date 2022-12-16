@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
         if (instance == null)
         {
             playerInstance = player;
+            checkEnnemies = true;
             instance = this;
         }
 
@@ -56,10 +57,13 @@ public class GameManager : MonoBehaviour
     {
         linkTexts();
         lookingForEnnemies();
-        if (displayedTimer != null && playerInstance.activeSelf)
+        if (actualLevel != 0 && actualLevel != 1)
         {
-            timer += Time.deltaTime;
-            displayedTimer.text = (Mathf.Round(timer * 100f) / 100).ToString();
+            if (displayedTimer != null && playerInstance.activeSelf)
+            {
+                timer += Time.deltaTime;
+                displayedTimer.text = (Mathf.Round(timer * 100f) / 100).ToString();
+            }
         }
     }
 
@@ -72,7 +76,9 @@ public class GameManager : MonoBehaviour
     public void StopGame()
     {
         life -= 1;
+        Debug.Log(life);
         GameObject.FindGameObjectWithTag("Player").GetComponent<LookingAt>().Disable();
+        RestartLevel(2f);
     }
 
     public void DeadEnnemie()

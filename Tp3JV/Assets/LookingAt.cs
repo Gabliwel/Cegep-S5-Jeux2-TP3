@@ -30,6 +30,10 @@ public class LookingAt : MonoBehaviour
         {
             Debug.Log("Button");
         }
+        if(collision.gameObject.tag == "Projectile")
+        {
+            GameObject.FindGameObjectWithTag("gameManager").GetComponent<GameManager>().StopGame();
+        }
     }
 
 
@@ -37,7 +41,6 @@ public class LookingAt : MonoBehaviour
     {
         ray.SetActive(false);
         gameObject.SetActive(false);
-        GameObject.FindGameObjectWithTag("gameManager").GetComponent<GameManager>().RestartLevel(1f);
     }
 
     void Update()
@@ -78,9 +81,13 @@ public class LookingAt : MonoBehaviour
             ray.transform.localScale = new Vector3(distance, 0.1f, 1);
             ray.GetComponent<Collider2D>().transform.localScale = new Vector3(distance, 0.1f, 1);
 
-            if(hit.collider.gameObject.tag == "Prop" && hit.collider.gameObject.active)
+            if(hit.collider.gameObject.tag == "Prop" && hit.collider.gameObject.activeSelf)
             {
                 hit.collider.gameObject.GetComponent<HP>().LoseHp();
+            }
+            if (hit.collider.gameObject.tag == "Ennemie" && hit.collider.gameObject.activeSelf)
+            {
+                hit.collider.gameObject.GetComponent<EnnemiesHealth>().LoseHp();
             }
         }
     }

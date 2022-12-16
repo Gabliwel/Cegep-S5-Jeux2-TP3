@@ -25,10 +25,6 @@ public class AllyDamage : MonoBehaviour
             {
                 GameObject.FindGameObjectWithTag("gameManager").GetComponent<GameManager>().StopGame();
             }
-            if(gameObject.tag == "Ennemie")
-            {
-                GameObject.FindGameObjectWithTag("gameManager").GetComponent<GameManager>().DeadEnnemie();
-            }
         }
     }
 

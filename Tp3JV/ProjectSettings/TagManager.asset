@@ -13,8 +13,8 @@ TagManager:
   - Button
   - Menu
   - Time
-  - TIme
   - Life
+  - Projectile
   layers:
   - Default
   - TransparentFX
