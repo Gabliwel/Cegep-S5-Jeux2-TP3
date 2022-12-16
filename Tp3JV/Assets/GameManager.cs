@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
 
     public static GameManager instance;
 
-    private int actualLevel = 0;
+    private int actualLevel = 2;
 
     bool scenesAreInTransition = false;
 
@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     private float timer = 0;
     [SerializeField] Text displayedTimer;
     [SerializeField] Text displayedLives;
+    [SerializeField] Text displayedEnnemies;
     private bool textsNotLinked = true;
     private bool checkEnnemies = false;
 
@@ -55,8 +56,8 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        linkTexts();
         lookingForEnnemies();
+        linkTexts();
         if (actualLevel != 0 && actualLevel != 1)
         {
             if (displayedTimer != null && playerInstance.activeSelf)
@@ -84,7 +85,7 @@ public class GameManager : MonoBehaviour
     public void DeadEnnemie()
     {
         totalEnnemies -= 1;
-        Debug.Log(totalEnnemies);
+        displayedEnnemies.text = totalEnnemies.ToString();
         if (totalEnnemies <= 0)
         {
             actualLevel += 1;
@@ -105,6 +106,9 @@ public class GameManager : MonoBehaviour
 
             displayedLives = GameObject.FindGameObjectWithTag("Life").GetComponent<Text>();
             displayedLives.text = life.ToString();
+
+            displayedEnnemies = GameObject.FindGameObjectWithTag("NbLeft").GetComponent<Text>();
+            displayedEnnemies.text = totalEnnemies.ToString();
 
             playerInstance = GameObject.FindGameObjectWithTag("Player");
         }
