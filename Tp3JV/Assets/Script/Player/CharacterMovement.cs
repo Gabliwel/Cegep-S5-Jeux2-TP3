@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Cainos.PixelArtTopDown_Basic
-{
-    public class TopDownCharacterControllerWithDust : MonoBehaviour
+    public class CharacterMovement : MonoBehaviour
     {
         public float speed;
 
@@ -13,6 +11,8 @@ namespace Cainos.PixelArtTopDown_Basic
         private ParticleSystem dust;
 
         private Vector2 lastDir;
+
+        bool gamePaused = false;
 
         private void Start()
         {
@@ -24,6 +24,8 @@ namespace Cainos.PixelArtTopDown_Basic
 
         private void Update()
         {
+            if (gamePaused) return;
+            
             Vector2 dir = Vector2.zero;
             if (Input.GetKey(KeyCode.A))
             {
@@ -50,7 +52,10 @@ namespace Cainos.PixelArtTopDown_Basic
             dir.Normalize();
 
             if (lastDir != dir && dir != Vector2.zero)
+            {
                 CreateDust();
+            }
+
             lastDir = dir;
 
             animator.SetBool("IsMoving", dir.magnitude > 0);
@@ -62,5 +67,9 @@ namespace Cainos.PixelArtTopDown_Basic
         {
             dust.Play();
         }
-    }
+
+        public void ChangePauseState(bool state)
+        {
+            gamePaused = state;
+        }
 }

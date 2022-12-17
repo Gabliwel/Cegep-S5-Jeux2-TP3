@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 namespace Cainos.PixelArtTopDown_Basic
 {
@@ -24,7 +25,11 @@ namespace Cainos.PixelArtTopDown_Basic
 
             if (other.gameObject.tag == "Player")
             {
-                other.gameObject.GetComponentInChildren<ParticleSystemRenderer>().sortingLayerName = sortingLayer;
+                ParticleSystemRenderer[] pss = other.gameObject.GetComponentsInChildren<ParticleSystemRenderer>();
+                foreach (ParticleSystemRenderer ps in pss)
+                {
+                    ps.sortingLayerName = sortingLayer;
+                }
             }
         }
 
