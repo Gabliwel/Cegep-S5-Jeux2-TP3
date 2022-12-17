@@ -9,6 +9,7 @@ public class NPCMovement : MonoBehaviour
     [SerializeField] bool canChase;
     [SerializeField] bool charge;
     private Vector3 destination;
+    Animator animator;
     private int currentPosition = 0;
     private bool firstDest = false;
     private bool canMove = true;
@@ -24,7 +25,7 @@ public class NPCMovement : MonoBehaviour
     private GameObject player;
     void Start()
     {
-
+        animator = gameObject.GetComponent<Animator>();
         if(canChase || charge)
         {
             player = GameObject.FindGameObjectWithTag("Player");
@@ -33,6 +34,7 @@ public class NPCMovement : MonoBehaviour
 
     void Update()
     {
+        animator.SetBool("isWalking", true);
         if (Time.timeScale == 0)
         {
             return;
@@ -54,6 +56,7 @@ public class NPCMovement : MonoBehaviour
 
         if (willChase)
         {
+            animator.SetBool("isWalking", true);
             if (player.activeSelf)
             {
                 destination = player.transform.position;
@@ -62,6 +65,7 @@ public class NPCMovement : MonoBehaviour
 
         if (charge && !chargeReady)
         {
+            animator.SetBool("isWalking", true);
             currentChargeWait += Time.deltaTime;
             if(currentChargeWait >= MAX_CHARGE_WAIT)
             {
@@ -72,10 +76,18 @@ public class NPCMovement : MonoBehaviour
 
         if (chargeReady && willChase)
         {
+            animator.SetBool("isWalking", true);
             Vector2 towards = Vector2.MoveTowards(transform.position, player.transform.position, Time.deltaTime * speed * 2);
-
+            if(player.transform.position.x - transform.position.x > 0)
+            {
+                gameObject.GetComponent<SpriteRenderer>().flipX = true;
+            }
+            else
+            {
+                gameObject.GetComponent<SpriteRenderer>().flipX = false;
+            }
             GetComponent<Rigidbody2D>().MovePosition(towards);
-
+            animator.SetBool("isWalking", true);
             currentTimeCharging += Time.deltaTime;
             if(currentTimeCharging >= MAX_TIME_CHARGING)
             {
@@ -91,7 +103,8 @@ public class NPCMovement : MonoBehaviour
         else
         {
             Vector2 towards = Vector2.MoveTowards(transform.position, destination, Time.deltaTime * speed);
-
+            gameObject.GetComponent<SpriteRenderer>().flipX = true;
+            animator.SetBool("isWalking", true);
             GetComponent<Rigidbody2D>().MovePosition(towards);
         }
 
@@ -108,11 +121,13 @@ public class NPCMovement : MonoBehaviour
         {
             if (currentPosition == positionPoint.Length - 1)
             {
+                gameObject.GetComponent<SpriteRenderer>().flipX = true;
                 ReverseDestination();
                 destination = positionPoint[1];
             }
             if(currentPosition + 1 < positionPoint.Length)
             {
+                gameObject.GetComponent<SpriteRenderer>().flipX = false;
                 destination = positionPoint[currentPosition + 1];
                 currentPosition++;
             }
@@ -123,7 +138,7 @@ public class NPCMovement : MonoBehaviour
     {
         Vector3[] reversed = new Vector3[positionPoint.Length];
         int counter = 0;
-        for(int i = positionPoint.Length; i > 0; i--)
+        for (int i = positionPoint.Length; i > 0; i--)
         {
             reversed[counter] = positionPoint[i - 1];
             counter++;

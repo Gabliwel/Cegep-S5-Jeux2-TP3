@@ -8,11 +8,13 @@ public class Shooting : MonoBehaviour
     [SerializeField] GameObject projectilePrefab;
     private static int projectileTotal = 1;
     private GameObject[] projectile = new GameObject[projectileTotal];
+    Animator animator;
 
     private float SHOOTING_DELAY = 3;
     private float currentWait = 0;
     void Start()
     {
+        animator = gameObject.GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player");
         for (int i = 0; i < projectileTotal; i++)
         {
@@ -28,6 +30,7 @@ public class Shooting : MonoBehaviour
             currentWait += Time.deltaTime;
             if (currentWait >= SHOOTING_DELAY)
             {
+                animator.SetBool("isAttacking", true);
                 currentWait = 0;
                 for (int i = 0; i < projectileTotal; i++)
                 {
@@ -37,6 +40,7 @@ public class Shooting : MonoBehaviour
                         projectile[i].GetComponent<Projectile>().SetDirection(player.transform.position);
                     }
                 }
+                animator.SetBool("isAttacking", false);
             }
         }
     }

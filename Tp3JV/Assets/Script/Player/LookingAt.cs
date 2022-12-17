@@ -6,10 +6,13 @@ public class LookingAt : MonoBehaviour
 {
     private Vector3 _target;
     [SerializeField] GameObject ray;
+    [SerializeField] Vector3 hitting;
     float ScreenMiddleX = 0;
     float ScreenMiddleY = 0;
     float offSet = 0;
     bool gamePaused = false;
+
+    private GameObject previousHit;
 
     void Start()
     {
@@ -25,11 +28,11 @@ public class LookingAt : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Button")
+        if (collision.gameObject.tag == "Button")
         {
             Debug.Log("Button");
         }
-        if(collision.gameObject.tag == "Projectile")
+        if (collision.gameObject.tag == "Projectile" && !collision.isTrigger)
         {
             GameObject.FindGameObjectWithTag("gameManager").GetComponent<GameManager>().StopGame();
         }
@@ -52,7 +55,7 @@ public class LookingAt : MonoBehaviour
         _target = Input.mousePosition;
         _target.y = (_target.y - ScreenMiddleY) / ScreenMiddleY;
 
-        if(_target.x < offSet)
+        if (_target.x < offSet)
         {
             _target.x = (_target.x - ScreenMiddleX) / ScreenMiddleX - 1;
         }
@@ -62,8 +65,7 @@ public class LookingAt : MonoBehaviour
         }
 
         Vector3 middle = gameObject.transform.position;
-        middle.y += 0.35f;
-
+        middle.y += 0.25f;
 
         RaycastHit2D hit = Physics2D.Raycast(middle, _target);
         if (hit.collider != null)
@@ -80,7 +82,8 @@ public class LookingAt : MonoBehaviour
             ray.transform.localScale = new Vector3(distance, 0.1f, 1);
             ray.GetComponent<Collider2D>().transform.localScale = new Vector3(distance, 0.1f, 1);
 
-            if(hit.collider.gameObject.tag == "Prop" && hit.collider.gameObject.activeSelf)
+
+            if (hit.collider.gameObject.tag == "Prop" && hit.collider.gameObject.activeSelf)
             {
                 hit.collider.gameObject.GetComponent<PropHP>().LoseHp();
             }
@@ -88,11 +91,18 @@ public class LookingAt : MonoBehaviour
             {
                 hit.collider.gameObject.GetComponent<EnnemiesHealth>().LoseHp();
             }
+            if (previousHit != null)
+            {
+                if (previousHit.tag == "Ennemie" && hit.collider.gameObject != previousHit)
+                {
+                    previousHit.GetComponent<EnnemiesHealth>().StopHitAnimation();
+                }
+            }
+            previousHit = hit.collider.gameObject;
         }
     }
-
-    public void ChangePauseState(bool state)
-    {
-        gamePaused = state;
-    }
+        public void ChangePauseState(bool state)
+        {
+            gamePaused = state;
+        }
 }
