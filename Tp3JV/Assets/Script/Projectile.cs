@@ -8,6 +8,7 @@ public class Projectile : MonoBehaviour
     private Vector3 direction;
     private float MAX_TIME_ALIVE = 15;
     private float currentTime = 0;
+    private Vector3 playerSpot;
     void Start()
     {
         
@@ -24,12 +25,13 @@ public class Projectile : MonoBehaviour
             gameObject.SetActive(false);
         }
 
-        transform.rotation = Quaternion.LookRotation(Vector3.forward, direction);
+        transform.rotation = Quaternion.LookRotation(Vector3.forward, playerSpot);
         transform.position += direction * Time.deltaTime;
     }
 
     public void SetDirection(Vector3 playerLocation)
     {
+        playerSpot = playerLocation;
         direction = (playerLocation - transform.position).normalized * speed;
         gameObject.SetActive(true);
     }
