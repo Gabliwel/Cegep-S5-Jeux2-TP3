@@ -13,7 +13,15 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip pause;
     [SerializeField] private AudioClip unpause;
 
+    [SerializeField] private AudioClip startSound;
     [SerializeField] private AudioClip endZone;
+
+    [SerializeField] private AudioClip deadPlayer;
+    [SerializeField] private AudioClip deadEnemy;
+    [SerializeField] private AudioClip deadAlly;
+
+    [SerializeField] private AudioClip brokenWoodProp;
+    [SerializeField] private AudioClip brokenRockProp;
 
     public static SoundManager Instance { get { return instance; } }
     public AudioClip KeyCollected { get { return keyCollected; } }
@@ -21,8 +29,13 @@ public class SoundManager : MonoBehaviour
     public AudioClip OpenDoor { get { return openDoor; } }
     public AudioClip Pause { get { return pause; } }
     public AudioClip Unpause { get { return unpause; } }
-
+    public AudioClip StartSound { get { return startSound; } }
     public AudioClip EndZone { get { return endZone; } }
+    public AudioClip DeadPlayer { get { return deadPlayer; } }
+    public AudioClip DeadEnemy { get { return deadEnemy; } }
+    public AudioClip DeadAlly { get { return deadAlly; } }
+    public AudioClip BrokenWoodProp { get { return brokenWoodProp; } }
+    public AudioClip BrokenRockProp { get { return brokenRockProp; } }
 
     void Start()
     {

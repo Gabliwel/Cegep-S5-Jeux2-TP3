@@ -4,27 +4,20 @@ using UnityEngine;
 
 public class AllyDamage : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private SoundMaker soundMaker;
+
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        soundMaker = GameObject.FindGameObjectWithTag("SoundMaker").GetComponent<SoundMaker>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Laser")
+        if(collision.gameObject.tag == "Laser" && gameObject.tag == "Ally")
         {
+            soundMaker.DeadAlly(gameObject.transform.position);
+            GameObject.FindGameObjectWithTag("gameManager").GetComponent<GameManager>().StopGame(false);
             gameObject.SetActive(false);
-            if (gameObject.tag == "Ally")
-            {
-                GameObject.FindGameObjectWithTag("gameManager").GetComponent<GameManager>().StopGame();
-            }
         }
     }
 

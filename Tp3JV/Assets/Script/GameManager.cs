@@ -21,7 +21,10 @@ public class GameManager : MonoBehaviour
     private Text displayedTimer;
     private Text displayedLives;
     private Text pauseText;
+    private RawImage pauseBack;
+    private Text status;
     private bool textsNotLinked = true;
+    private SoundMaker soundMaker;
 
     void Awake()
     {
@@ -81,10 +84,19 @@ public class GameManager : MonoBehaviour
         StartCoroutine(RestartLevelDelay(0, actualLevel));
     }
 
-    public void StopGame()
+    public void StopGame(bool killed)
     {
         life -= 1;
         playerInstance.GetComponent<LookingAt>().Disable();
+        if(killed)
+        {
+            soundMaker.DeadPlayer(playerInstance.transform.position);
+            status.text = "Vous êtes mort par un ennemie!";
+        }
+        else
+        {
+            status.text = "Ne tuez pas vos alliers!";
+        }
         RestartLevel(2f);
     }
 
@@ -107,6 +119,15 @@ public class GameManager : MonoBehaviour
 
                 pauseText = GameObject.FindGameObjectWithTag("PauseUI").GetComponent<Text>();
                 pauseText.enabled = false;
+
+                pauseBack = GameObject.FindGameObjectWithTag("PauseUIBack").GetComponent<RawImage>();
+                pauseBack.enabled = false;
+
+                status = GameObject.FindGameObjectWithTag("StatusUI").GetComponent<Text>();
+                status.text = "";
+
+                soundMaker = GameObject.FindGameObjectWithTag("SoundMaker").GetComponent<SoundMaker>();
+                soundMaker.StartSound(playerInstance.transform.position);
             }
         }
     }
@@ -169,6 +190,7 @@ public class GameManager : MonoBehaviour
 
     public void PauseUI(bool onPause)
     {
+        pauseBack.enabled = onPause;
         pauseText.enabled = onPause;
     }
 }

@@ -31,9 +31,9 @@ public abstract class NPCMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Player" && gameObject.tag != "Ally")
+        if(collision.gameObject.tag == "Player" && gameObject.tag == "Ennemie")
         {
-            GameObject.FindGameObjectWithTag("gameManager").GetComponent<GameManager>().StopGame();
+            GameObject.FindGameObjectWithTag("gameManager").GetComponent<GameManager>().StopGame(true);
         }
     }
 
@@ -41,7 +41,7 @@ public abstract class NPCMovement : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            GameObject.FindGameObjectWithTag("gameManager").GetComponent<GameManager>().StopGame();
+            GameObject.FindGameObjectWithTag("gameManager").GetComponent<GameManager>().StopGame(true);
         }
     }
 }

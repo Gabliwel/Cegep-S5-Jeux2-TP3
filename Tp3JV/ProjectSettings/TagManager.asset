@@ -15,6 +15,9 @@ TagManager:
   - Prop
   - PauseUI
   - Projectile
+  - PauseUIBack
+  - StatusUI
+  - SoundMaker
   layers:
   - Default
   - TransparentFX

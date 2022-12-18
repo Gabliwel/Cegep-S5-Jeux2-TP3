@@ -26,19 +26,6 @@ public class LookingAt : MonoBehaviour
         offSet = (ScreenMiddleX - ScreenMiddleY) / 2;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Button")
-        {
-            Debug.Log("Button");
-        }
-        if (collision.gameObject.tag == "Projectile" && !collision.isTrigger)
-        {
-            GameObject.FindGameObjectWithTag("gameManager").GetComponent<GameManager>().StopGame();
-        }
-    }
-
-
     public void Disable()
     {
         ray.SetActive(false);

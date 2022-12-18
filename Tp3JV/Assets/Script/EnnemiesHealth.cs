@@ -7,22 +7,13 @@ public class EnnemiesHealth : MonoBehaviour
     [SerializeField] int health;
     Animator animator;
     private bool gotHit = false;
+    private SoundMaker soundMaker;
+
     void Start()
     {
+        soundMaker = GameObject.FindGameObjectWithTag("SoundMaker").GetComponent<SoundMaker>();
         animator = gameObject.GetComponent<Animator>();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-
-    }
-
 
     public void LoseHp()
     {
@@ -30,6 +21,7 @@ public class EnnemiesHealth : MonoBehaviour
         animator.SetBool("isHit", true);
         if (health <= 0)
         {
+            soundMaker.DeadEnemy(gameObject.transform.position);
             gameObject.SetActive(false);
         }
         if (!gotHit)
