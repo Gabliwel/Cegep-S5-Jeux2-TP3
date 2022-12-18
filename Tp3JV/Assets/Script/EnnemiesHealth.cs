@@ -27,7 +27,6 @@ public class EnnemiesHealth : MonoBehaviour
     public void LoseHp()
     {
         health -= 1;
-        //true
         animator.SetBool("isHit", true);
         if (health <= 0)
         {
