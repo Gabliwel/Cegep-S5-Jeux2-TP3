@@ -3,7 +3,21 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - SoundManager
+  - Life
+  - NbLeft
+  - Time
+  - gameManager
+  - Laser
+  - Ennemie
+  - Ally
+  - Prop
+  - PauseUI
+  - Projectile
+  - PauseUIBack
+  - StatusUI
+  - SoundMaker
   layers:
   - Default
   - TransparentFX
@@ -19,7 +33,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Player
   - 
   - 
   - 
