@@ -12,7 +12,7 @@ But: compléter tout les niveaux sans touché les alliés et survivre aux ennemi
 
 Autres informations: les niveaux plus plus complexe on un système avec des étages ainsi que des clés
 
-Lien du jeu: [zip via GoogleDrive]([https://drive.google.com/drive/folders/1sGme87ROmeVhz7vgAVTaTmIin0_kX8dx?usp=sharing](https://drive.google.com/drive/folders/1ZEpD2ERrjUbIT82lOgiS4Z1wDAnj9uuM?usp=sharing)
+Lien du jeu: [zip via GoogleDrive](https://drive.google.com/drive/folders/1ZEpD2ERrjUbIT82lOgiS4Z1wDAnj9uuM?usp=sharing)
 
 ## Vidéo
 https://github.com/user-attachments/assets/f7c3a9a5-caa1-4200-ab91-6af97316b82c
